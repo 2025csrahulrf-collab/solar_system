@@ -1,0 +1,24 @@
+
+body{ 
+    background-color: wheat;
+    font-family: 'Courier New', 'Courier New', Courier, monospace;
+}
+
+h1 {
+    font-family: "Playfair Display", serif;
+    font-style: italic;
+}
+
+
+.playfair-display{
+  font-family: "Playfair Display", serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.heading{
+    margin: auto ;
+    padding: auto;
+    border: 2px solid black;
+}
