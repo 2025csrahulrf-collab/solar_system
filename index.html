@@ -1,35 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width" intitial-scale="1.0">
-    <title>Document</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solar Energy System</title>
     <link rel="stylesheet" href="style.css">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
 </head>
 
-<body>
+<body class="light">
+
     <header>
         <center>
             <h1 class="heading">Solar Energy System</h1>
         </center>
+
         <center>
             <h3>A Clean and Renewable Source of Power</h3>
         </center>
+
         <nav>
             <a href="#intro">Introduction</a> |
             <a href="#benefits">Benefits</a> |
             <a href="#solar">Solar Set-up</a> |
+            <a href="#types">Types</a> |
+            <a href="#challenges">Challenges</a> |
+            <a href="#contact">Contact</a>
         </nav>
+
+        <center>
+            <button onclick="changing()">Change Background Colour</button>
+            <button id="mode">Change Mode</button>
+        </center>
     </header>
+
     <main>
-        <section>
-            <h2 1d="intro">Introduction</h2>
+
+        <section id="intro">
+            <h2>Introduction</h2>
+
             <p>
                 As the world's energy demands continue to rise, renewable energy sources have become increasingly
                 important. Solar energy is one of the most abundant and eco-friendly sources of power available today.
@@ -38,163 +50,184 @@
                 Governments and organizations worldwide are encouraging the adoption of solar technology to build a
                 cleaner and greener future.
             </p>
+        </section>
 
-        </section><br>
+        <br>
 
-        <section>
-            <h2 id="benefits">Benifits of Solar Energy</h2>
-            <div>
-                <ol>
-                    <li>
-                        <strong>Renewable Energy Source - </strong>
-                        Solar energy is an unlimited resource because sunlight is available every day. Unlike fossil
-                        fuels, it does not get depleted over time.
-                    </li>
-                    <li>
-                        <strong>Environment Friendly - </strong>
-                        Solar power generates electricity without producing harmful greenhouse gases or air pollution,
-                        helping reduce global warming.
-                    </li>
-                    <li>
-                        <strong>Lower Electricity Bills - </strong>
-                        Installing solar panels allows homes and businesses to generate their own electricity, reducing
-                        monthly electricity expenses.
-                    </li>
-                    <li>
-                        <strong>Low Maintenance - </strong>
-                        Solar panels require minimal maintenance and can operate efficiently for more than 25 years with
-                        periodic cleaning.
-                    </li>
-                </ol>
-            </div>
+        <section id="benefits">
+            <h2>Benefits of Solar Energy</h2>
 
-        </section><br>
-
-        <section>
-            <h2 id="solar">Solar Power System Setup</h2>
             <ol>
-                <h4>SOLAR PANELS</h4>
-                <div>
-                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQCHwmeiMUBG3wPKuDEhk__jJaUG-YO5RihmivgfycO5cESAaQXRJ-9K9yX&s=10"
-                        alt="Solar Set-up" height="300px" width="400px">
-                </div>
+                <li>
+                    <strong>Renewable Energy Source - </strong>
+                    Solar energy is an unlimited resource because sunlight is available every day. Unlike fossil
+                    fuels, it does not get depleted over time.
+                </li>
 
-                <h4>MOUNTING STRUCTURE</h4>
-                <div>
-                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTwO6g69MUpSmwuzorK_7xvmP1jqNILZ2W1FOPPbNqvizZnfvdRvJ2XJvm0&s=10"
-                        alt="Mounting set-up" width="400px" height="300px">
-                </div>
+                <li>
+                    <strong>Environment Friendly - </strong>
+                    Solar power generates electricity without producing harmful greenhouse gases or air pollution,
+                    helping reduce global warming.
+                </li>
 
+                <li>
+                    <strong>Lower Electricity Bills - </strong>
+                    Installing solar panels allows homes and businesses to generate their own electricity, reducing
+                    monthly electricity expenses.
+                </li>
 
-                <h4>DC CABLE</h4>
-                <div>
-                    <img src="https://5.imimg.com/data5/SELLER/Default/2024/5/419949028/VB/KY/PE/47517650/solar-dc-cable.jpg"
-                        alt="DC cables" width="400px" height="300px">
-                </div>
-
-                <h4>SOLAR INVERTER</h4>
-                <div>
-                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSm25J7K8Xj5u1mebppReh3TIGiqgfsSwE25ElABiNSB1L2xkKu4NeKWL4&s=10"
-                        alt="Solar invertor" width="400px" height="300px">
-                </div>
+                <li>
+                    <strong>Low Maintenance - </strong>
+                    Solar panels require minimal maintenance and can operate efficiently for more than 25 years with
+                    periodic cleaning.
+                </li>
             </ol>
-        </section><br>
+        </section>
 
-        <section>
-            <h2>Types of Solar Energy Systems</h2>
+        <br>
+
+        <section id="solar">
+            <h2>Solar Power System Setup</h2>
+
+            <h4>SOLAR PANELS</h4>
             <div>
-                <ol>
-                    <li>
-                        <a href="https://youtu.be/YlI4lH0huEs?si=kgb5kOK5kJyaNaJu" target="_blank">
-                            <strong>On-Grid System:</strong>
-                        </a>
-
-                        Connected directly to the electricity grid and suitable for urban areas.
-
-                    </li>
-                    <li>
-                        <a href="https://youtu.be/pd5Pie-w7KE?si=GDwRs8TvmSx0lW7p" target="_blank"><strong>Off-Grid
-                                System:</strong></a>
-                        Operates independently using batteries to store energy for later use.
-
-                    </li>
-                    <li>
-                        <a href="https://youtu.be/BMrA-5EDakg?si=TUPazJKDAv8kwu_P" target="_blank"><strong>Hybrid
-                                System:</strong></a>
-                        Combines solar panels, batteries, and grid electricity for maximum efficiency.
-
-                    </li>
-                    <li>
-                        <a href="https://youtu.be/YmP04fg7yOA?si=Kg4Abdz9SZV_JXS_" target="_blank"><strong>Solar Water
-                                Heating:</strong></a>
-                        Solar panels require minimal maintenance and can operate efficiently for more than 25 years with
-                        periodic cleaning.Uses solar collectors to heat water for residential and commercial purposes.
-
-                    </li>
-                </ol>
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQCHwmeiMUBG3wPKuDEhk__jJaUG-YO5RihmivgfycO5cESAaQXRJ-9K9yX&s=10"
+                    alt="Solar Panels">
             </div>
 
-        </section><br>
+            <h4>MOUNTING STRUCTURE</h4>
+            <div>
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTwO6g69MUpSmwuzorK_7xvmP1jqNILZ2W1FOPPbNqvizZnfvdRvJ2XJvm0&s=10"
+                    alt="Mounting Structure">
+            </div>
 
-        <section>
+            <h4>DC CABLE</h4>
+            <div>
+                <img src="https://5.imimg.com/data5/SELLER/Default/2024/5/419949028/VB/KY/PE/47517650/solar-dc-cable.jpg"
+                    alt="DC Cables">
+            </div>
+
+            <h4>SOLAR INVERTER</h4>
+            <div>
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSm25J7K8Xj5u1mebppReh3TIGiqgfsSwE25ElABiNSB1L2xkKu4NeKWL4&s=10"
+                    alt="Solar Inverter">
+            </div>
+        </section>
+
+        <br>
+
+        <section id="types">
+            <h2>Types of Solar Energy Systems</h2>
+
+            <ol>
+                <li>
+                    <a href="https://youtu.be/YlI4lH0huEs?si=kgb5kOK5kJyaNaJu" target="_blank">
+                        <strong>On-Grid System:</strong>
+                    </a>
+                    Connected directly to the electricity grid and suitable for urban areas.
+                </li>
+
+                <li>
+                    <a href="https://youtu.be/pd5Pie-w7KE?si=GDwRs8TvmSx0lW7p" target="_blank">
+                        <strong>Off-Grid System:</strong>
+                    </a>
+                    Operates independently using batteries to store energy for later use.
+                </li>
+
+                <li>
+                    <a href="https://youtu.be/BMrA-5EDakg?si=TUPazJKDAv8kwu_P" target="_blank">
+                        <strong>Hybrid System:</strong>
+                    </a>
+                    Combines solar panels, batteries, and grid electricity for maximum efficiency.
+                </li>
+
+                <li>
+                    <a href="https://youtu.be/YmP04fg7yOA?si=Kg4Abdz9SZV_JXS_" target="_blank">
+                        <strong>Solar Water Heating:</strong>
+                    </a>
+                    Uses solar collectors to heat water for residential and commercial purposes.
+                </li>
+            </ol>
+        </section>
+
+        <br>
+
+        <section id="challenges">
             <h2>Challenges</h2>
+
             <ol>
                 <li>
                     <strong>High Initial Investment:</strong>
                     <i>Installing solar panels requires a significant upfront cost.</i>
-
                 </li>
+
                 <li>
                     <strong>Weather Dependency:</strong>
                     <i>Solar panels produce less electricity during cloudy or rainy days.</i>
                 </li>
+
                 <li>
                     <strong>Space Requirement:</strong>
                     <i>Large installations require sufficient roof or land area.</i>
                 </li>
+
                 <li>
                     <strong>Battery Cost:</strong>
                     <i>Energy storage batteries can be expensive and require replacement after several years.</i>
                 </li>
             </ol>
-        </section><br>
+        </section>
+
+        <br>
 
         <section>
             <h2>Conclusion</h2>
-            <p>
-                Solar energy is a sustainable and environmentally friendly solution for meeting future energy needs. It
-                reduces pollution, lowers electricity costs, and promotes energy independence. As technology advances
-                and installation costs decrease, solar energy will play an increasingly important role in creating a
-                cleaner and more sustainable world.
-            </p>
 
-        </section><br>
+            <p>
+                Solar energy is a sustainable and environmentally friendly solution for meeting future energy needs.
+                It reduces pollution, lowers electricity costs, and promotes energy independence. As technology
+                advances and installation costs decrease, solar energy will play an increasingly important role in
+                creating a cleaner and more sustainable world.
+            </p>
+        </section>
+
+        <br>
 
     </main>
-    <footer>
+
+    <footer id="contact">
+
         <h2>Contact Form</h2>
+
         <form action="submit.html">
-            <label>Name: </label>
+
+            <label>Name:</label>
             <input type="text" name="name" placeholder="Enter the name" required>
+
             <br><br>
 
-            <label>Email: </label>
-            <input type="email" placeholder="Enter your email Id"><br><br>
+            <label>Email:</label>
+            <input type="email" name="email" placeholder="Enter your email Id" required>
 
-            <label>Gender: </label>
+            <br><br>
+
+            <label>Gender:</label>
             <input type="radio" name="gender" value="female">Female
-            <input type="radio" name="gender" value="female">Male<br><br>
+            <input type="radio" name="gender" value="male">Male
 
-            <label>Skills: </label>
-            <input type="checkbox" name="skill" value="html">HTML
-            <input type="checkbox" name="skill" value="html">FastAPI
-            <input type="checkbox" name="skill" value="html">Python
-            <input type="checkbox" name="skill" value="html">CSS
             <br><br>
 
-            <label>Location: </label>
+            <label>Skills:</label>
+            <input type="checkbox" name="skill" value="html">HTML
+            <input type="checkbox" name="skill" value="fastapi">FastAPI
+            <input type="checkbox" name="skill" value="python">Python
+            <input type="checkbox" name="skill" value="css">CSS
 
-            <select>
+            <br><br>
+
+            <label>Location:</label>
+
+            <select name="location">
                 <option>Select one</option>
                 <option>Mandya</option>
                 <option>Udupi</option>
@@ -202,12 +235,17 @@
                 <option>Dharwad</option>
                 <option>Bangluru</option>
                 <option>Mysuru</option>
-            </select><br><br>
-            
-                <button type="submit">Submit</button>
-            
-        </form>
-    </footer>
-</body>
+            </select>
 
+            <br><br>
+
+            <button type="submit">Submit</button>
+
+        </form>
+
+    </footer>
+
+    <script src="script.js"></script>
+
+</body>
 </html>
