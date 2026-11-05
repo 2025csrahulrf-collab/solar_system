@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Orrery – Solar System Explorer</title>
+<style>
+:root{--bg:#070916;--panel:#0f1330;--line:#262c5a;--text:#eef1ff;--muted:#9aa3d6;--accent:#ffb23e;color-scheme:dark;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#070916;--panel:#0f1330;--line:#262c5a;--text:#eef1ff;--muted:#9aa3d6;--accent:#ffb23e}}
+:root[data-theme="dark"]{--bg:#070916;--panel:#0f1330;--line:#262c5a;--text:#eef1ff;--muted:#9aa3d6;--accent:#ffb23e}
+*{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--text);font:16px/1.5 "Inter",system-ui,-apple-system,"Segoe UI",sans-serif}
+header{display:flex;justify-content:space-between;align-items:center;padding:20px clamp(16px,4vw,48px)}
+.logo{font-weight:700;letter-spacing:.14em;text-transform:uppercase}
+.logo span{color:var(--accent)}
+header small{color:var(--muted)}
+h1{margin:0;padding:8px clamp(16px,4vw,48px) 0;font-size:clamp(32px,6vw,60px);line-height:1.05;animation:rise .9s ease-out both}
+.lead{margin:8px 0 0;padding:0 clamp(16px,4vw,48px);color:var(--muted);max-width:640px;animation:rise .9s .2s ease-out both}
+main{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:20px;padding:24px clamp(16px,4vw,48px) 40px}
+.stage{position:relative;background:radial-gradient(ellipse at center,#141a44 0%,var(--bg) 75%);border:1px solid var(--line);border-radius:20px;overflow:hidden;height:min(72vh,680px);min-height:420px}
+canvas{width:100%;height:100%;display:block;cursor:pointer}
+.controls{position:absolute;left:12px;right:12px;bottom:12px;display:flex;gap:12px;align-items:center;background:rgba(15,19,48,.8);backdrop-filter:blur(8px);border:1px solid var(--line);border-radius:14px;padding:8px 12px}
+.controls button{background:var(--accent);color:#1a1200;border:0;border-radius:10px;padding:6px 14px;font-weight:600;cursor:pointer}
+.controls label{color:var(--muted);font-size:14px;display:flex;gap:8px;align-items:center;flex:1}
+.controls input{flex:1;accent-color:var(--accent)}
+aside{display:flex;flex-direction:column;gap:16px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:20px}
+#info{animation:rise .5s ease-out both}
+#info h2{margin:0 0 4px;font-size:30px;display:flex;align-items:center;gap:12px}
+.dot{width:20px;height:20px;border-radius:50%;display:inline-block}
+dl{display:grid;grid-template-columns:auto 1fr;gap:6px 16px;margin:16px 0}
+dt{color:var(--muted)}dd{margin:0;text-align:right;font-weight:600}
+.fact{color:var(--muted);margin:0}
+.list{display:flex;flex-wrap:wrap;gap:8px}
+.list button{display:flex;align-items:center;gap:8px;background:transparent;color:var(--text);border:1px solid var(--line);border-radius:999px;padding:6px 12px;cursor:pointer;transition:.2s}
+.list button:hover{border-color:var(--accent)}
+.list button[aria-pressed="true"]{background:var(--accent);color:#1a1200;border-color:var(--accent)}
+.note{color:var(--muted);font-size:13px;padding:0 clamp(16px,4vw,48px) 32px;margin:0}
+@keyframes rise{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+@media (max-width:860px){main{grid-template-columns:1fr}.stage{height:60vh}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important}}
+</style>
+</head>
+<body>
+<header><div class="logo">Orr<span>e</span>ry</div><small>Interactive Solar System</small></header>
+<h1>Explore our Solar System</h1>
+<p class="lead">Watch the eight planets orbit the Sun in real time. Tap a planet to learn more, or change the speed of time.</p>
+<main>
+  <section class="stage">
+    <canvas id="c" aria-label="Animated model of the Solar System"></canvas>
+    <div class="controls">
+      <button id="pp" type="button">Pause</button>
+      <label>Speed <input id="sp" type="range" min="0.2" max="5" step="0.1" value="1"></label>
+    </div>
+  </section>
+  <aside>
+    <div class="card" id="info"></div>
+    <div class="card"><div class="list" id="list"></div></div>
+  </aside>
+</main>
+<p class="note">Orbit distances and speeds are compressed so every planet fits on screen. Figures are approximate.</p>
+<script>
+const P=[
+{n:"Mercury",c:"#b5aca4",s:5,d:88,au:"0.39",dia:"4,879 km",day:"59 Earth days",yr:"88 days",f:"The smallest planet and the fastest, racing around the Sun in under three months."},
+{n:"Venus",c:"#e8c27a",s:8,d:225,au:"0.72",dia:"12,104 km",day:"243 Earth days",yr:"225 days",f:"Hottest planet at about 465 °C, and its day is longer than its year."},
+{n:"Earth",c:"#4a8cf0",s:8.5,d:365,au:"1.00",dia:"12,742 km",day:"24 hours",yr:"365 days",f:"The only known world with liquid oceans and life."},
+{n:"Mars",c:"#d65f3c",s:6.5,d:687,au:"1.52",dia:"6,779 km",day:"24.6 hours",yr:"687 days",f:"Home to Olympus Mons, the tallest volcano in the Solar System."},
+{n:"Jupiter",c:"#d2a074",s:17,d:4333,au:"5.20",dia:"139,820 km",day:"10 hours",yr:"11.9 years",f:"A gas giant so large that every other planet would fit inside it."},
+{n:"Saturn",c:"#e4cc94",s:14,d:10759,au:"9.58",dia:"116,460 km",day:"10.7 hours",yr:"29.5 years",f:"Famous for its ice-and-rock rings, and light enough to float on water."},
+{n:"Uranus",c:"#8fdde0",s:10,d:30687,au:"19.2",dia:"50,724 km",day:"17 hours",yr:"84 years",f:"Rolls around the Sun tilted on its side."},
+{n:"Neptune",c:"#4f6df0",s:10,d:60190,au:"30.1",dia:"49,244 km",day:"16 hours",yr:"165 years",f:"Windy and cold, with storms faster than the speed of sound."}];
+let sel=2,speed=1,paused=false,t=0,last=0,pos=[];
+const cv=document.getElementById("c"),g=cv.getContext("2d");
+const ang=P.map((p,i)=>i*0.9+0.5);
+const stars=Array.from({length:120},(_,i)=>({x:(i*97.31%100)/100,y:(i*53.77%100)/100,r:.5+(i%3)*.4,p:i}));
+let W=0,H=0;
+function fit(){const r=cv.getBoundingClientRect(),d=devicePixelRatio||1;W=r.width;H=r.height;cv.width=W*d;cv.height=H*d;g.setTransform(d,0,0,d,0,0)}
+addEventListener("resize",fit);fit();
+const R=(i)=>{const m=Math.min(W,H-60)/2-14;return 50+(m-50)*(i+1)/P.length*1.0-(m-50)/P.length*0.0}
+function draw(ts){
+ const dt=Math.min((ts-last)/1000,.1);last=ts;
+ if(!paused){t+=dt;P.forEach((p,i)=>{ang[i]+=dt*speed*2.2/Math.pow(p.d/88,.55)*.5})}
+ g.clearRect(0,0,W,H);
+ stars.forEach(s=>{g.globalAlpha=.4+.5*Math.sin(ts/900+s.p);g.fillStyle="#fff";g.beginPath();g.arc(s.x*W,s.y*H,s.r,0,7);g.fill()});
+ g.globalAlpha=1;
+ const cx=W/2,cy=(H-50)/2+10;
+ const gl=g.createRadialGradient(cx,cy,0,cx,cy,70);
+ gl.addColorStop(0,"rgba(255,200,80,.9)");gl.addColorStop(1,"rgba(255,150,30,0)");
+ g.fillStyle=gl;g.beginPath();g.arc(cx,cy,70+Math.sin(ts/700)*4,0,7);g.fill();
+ g.fillStyle="#ffd166";g.beginPath();g.arc(cx,cy,24,0,7);g.fill();
+ pos=[];
+ P.forEach((p,i)=>{
+  const r=R(i)*.98,x=cx+Math.cos(ang[i])*r,y=cy+Math.sin(ang[i])*r*.0+Math.sin(ang[i])*r;
+  g.strokeStyle=i===sel?"rgba(255,178,62,.7)":"rgba(255,255,255,.12)";g.lineWidth=i===sel?1.6:1;
+  g.beginPath();g.arc(cx,cy,r,0,7);g.stroke();
+  if(p.n==="Saturn"){g.strokeStyle="rgba(228,204,148,.7)";g.lineWidth=2.5;g.beginPath();g.ellipse(x,y,p.s*1.9,p.s*.6,-.4,0,7);g.stroke()}
+  g.fillStyle=p.c;g.shadowColor=p.c;g.shadowBlur=i===sel?24:8;
+  g.beginPath();g.arc(x,y,p.s,0,7);g.fill();g.shadowBlur=0;
+  if(i===sel){g.strokeStyle="#ffb23e";g.lineWidth=1.5;g.beginPath();g.arc(x,y,p.s+6+Math.sin(ts/300)*2,0,7);g.stroke();
+   g.fillStyle="#eef1ff";g.font="600 13px sans-serif";g.textAlign="center";g.fillText(p.n,x,y-p.s-14)}
+  pos.push({x,y,r:Math.max(p.s,12)});
+ });
+ requestAnimationFrame(draw);
+}
+requestAnimationFrame(draw);
+cv.addEventListener("click",e=>{
+ const b=cv.getBoundingClientRect(),x=e.clientX-b.left,y=e.clientY-b.top;
+ let best=-1,bd=1e9;
+ pos.forEach((p,i)=>{const d=Math.hypot(p.x-x,p.y-y);if(d<p.r+10&&d<bd){bd=d;best=i}});
+ if(best>=0)pick(best);
+});
+const list=document.getElementById("list"),info=document.getElementById("info");
+P.forEach((p,i)=>{const b=document.createElement("button");b.type="button";
+ b.innerHTML='<span class="dot" style="width:12px;height:12px;background:'+p.c+'"></span>'+p.n;
+ b.onclick=()=>pick(i);list.appendChild(b)});
+function pick(i){
+ sel=i;const p=P[i];
+ [...list.children].forEach((b,j)=>b.setAttribute("aria-pressed",j===i));
+ info.style.animation="none";void info.offsetWidth;info.style.animation="";
+ info.innerHTML='<h2><span class="dot" style="background:'+p.c+';box-shadow:0 0 16px '+p.c+'"></span>'+p.n+'</h2>'+
+ '<dl><dt>Distance from Sun</dt><dd>'+p.au+' AU</dd><dt>Diameter</dt><dd>'+p.dia+'</dd><dt>Length of day</dt><dd>'+p.day+'</dd><dt>Length of year</dt><dd>'+p.yr+'</dd></dl>'+
+ '<p class="fact">'+p.f+'</p>';
+}
+pick(2);
+document.getElementById("pp").onclick=e=>{paused=!paused;e.target.textContent=paused?"Play":"Pause"};
+document.getElementById("sp").oninput=e=>speed=+e.target.value;
+</script>
+</body>
+</html>
